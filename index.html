@@ -1,135 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wretched Man That I Am</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Great+Vibes&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wretched Man That I Am</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            background-color: #f4e4bc;
+            font-family: 'Courier New', Courier, monospace;
+            color: #3c2f2f;
+            overflow-x: hidden;
+        }
 
-    body {
-      background: #f8f1e4 url('https://www.transparenttextures.com/patterns/aged-paper.png');
-      color: #2f1b0c;
-      font-family: 'Cinzel', serif;
-      padding: 2rem;
-      line-height: 2;
-    }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 40px;
+            background: rgba(255, 245, 224, 0.9);
+            border: 5px solid #8b6f47;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            margin: 20px;
+            border-radius: 10px;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background-color: rgba(255, 248, 230, 0.9);
-      border: 1.5px solid #7c6240;
-      border-radius: 8px;
-      padding: 3rem;
-      box-shadow: 0 0 20px rgba(70, 50, 30, 0.3);
-    }
+        h1 {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: #4a3728;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
 
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
-      text-align: center;
-      color: #5a3b1e;
-      margin-bottom: 0.2rem;
-    }
+        .poem {
+            line-height: 1.8;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            text-align: left;
+            white-space: pre-wrap;
+        }
 
-    h2 {
-      font-size: 1rem;
-      text-align: center;
-      font-style: italic;
-      color: #3b2a1a;
-      margin-bottom: 2rem;
-    }
+        .reference {
+            font-size: 0.6em;
+            font-style: italic;
+            color: #8b6f47;
+            opacity: 0.5;
+            vertical-align: super;
+        }
 
-    blockquote {
-      font-style: italic;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      font-size: 1.1rem;
-      color: #4b2d19;
-    }
+        .ending {
+            font-weight: bold;
+            font-style: italic;
+            color: #2e1e0f;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-    .verse {
-      margin: 1.4rem 0;
-      text-indent: 2em;
-    }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
 
-    @media screen and (max-width: 768px) {
-      body {
-        padding: 1rem;
-      }
+            h1 {
+                font-size: clamp(1.5rem, 4vw, 2rem);
+            }
 
-      .container {
-        padding: 2rem;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .verse {
-        font-size: 1rem;
-        text-indent: 1.5em;
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      .verse {
-        font-size: 0.95rem;
-        text-indent: 1em;
-      }
-
-      h1 {
-        font-size: 1.6rem;
-      }
-    }
-  </style>
+            .poem {
+                font-size: clamp(0.9rem, 2.5vw, 1rem);
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Wretched Man That I Am</h1>
-    <h2>— A Cry from the Furnace of Lust —</h2>
-    <blockquote>“Wretched man that I am! Who will deliver me from this body of death?”<br><em>(Romans 7:24)</em></blockquote>
+    <div class="container">
+        <h1>Wretched Man That I Am<br>A Cry from the Furnace of Lust</h1>
+        <div class="poem">
+“Wretched man that I am! Who will deliver me from this body of death?”<span class="reference">(Romans 7:24)</span>
 
-    <div class="verse">My flesh wars against my mind,</div>
-    <div class="verse">And holds me captive to the law of sin (Romans 7:23).</div>
-    <div class="verse">The desires of the flesh are against the Spirit (Galatians 5:17),</div>
-    <div class="verse">And I do what I hate (Romans 7:15).</div>
+My flesh wars against my mind,
+And holds me captive to the law of sin<span class="reference">(Romans 7:23)</span>.
+The desires of the flesh are against the Spirit<span class="reference">(Galatians 5:17)</span>,
+And I do what I hate<span class="reference">(Romans 7:15)</span>.
 
-    <div class="verse">I was enticed and carried away by my own lust (James 1:14),</div>
-    <div class="verse">Sin conceived—and gave birth to death (James 1:15).</div>
-    <div class="verse">I made a covenant with my eyes (Job 31:1),</div>
-    <div class="verse">But my eyes made war with my soul (1 Peter 2:11).</div>
+I was enticed and carried away by my own lust<span class="reference">(James 1:14)</span>,
+Sin conceived—and gave birth to death<span class="reference">(James 1:15)</span>.
+I made a covenant with my eyes<span class="reference">(Job 31:1)</span>,
+But my eyes made war with my soul<span class="reference">(1 Peter 2:11)</span>.
 
-    <div class="verse">The flesh profits nothing (John 6:63),</div>
-    <div class="verse">But still it whispers, “Taste and see.”</div>
-    <div class="verse">Its path is wide, its gate is easy (Matthew 7:13),</div>
-    <div class="verse">And many are those who walk it—including me.</div>
+The flesh profits nothing<span class="reference">(John 6:63)</span>,
+But still it whispers, “Taste and see.”
+Its path is wide, its gate is easy<span class="reference">(Matthew 7:13)</span>,
+And many are those who walk it—including me.
 
-    <div class="verse">I cried aloud, but He did not answer (Lamentations 3:8),</div>
-    <div class="verse">Because my iniquities have made a separation (Isaiah 59:2).</div>
-    <div class="verse">I washed, but the stain remains (Jeremiah 2:22),</div>
-    <div class="verse">The plague is within me (1 Kings 8:38).</div>
+I cried aloud, but He did not answer<span class="reference">(Lamentations 3:8)</span>,
+Because my iniquities have made a separation<span class="reference">(Isaiah 59:2)</span>.
+I washed, but the stain remains<span class="reference">(Jeremiah 2:22)</span>,
+The plague is within me<span class="reference">(1 Kings 8:38)</span>.
 
-    <div class="verse">O God, create in me a clean heart (Psalm 51:10),</div>
-    <div class="verse">Because mine is sick—deceitful above all things (Jeremiah 17:9).</div>
-    <div class="verse">The law is holy, but I am sold under sin (Romans 7:12,14),</div>
-    <div class="verse">I try to flee—but who will set me free?</div>
+O God, create in me a clean heart<span class="reference">(Psalm 51:10)</span>,
+Because mine is sick—deceitful above all things<span class="reference">(Jeremiah 17:9)</span>.
+The law is holy, but I am sold under sin<span class="reference">(Romans 7:12,14)</span>,
+I try to flee—but who will set me free?
 
-    <div class="verse">I know that nothing good dwells in me (Romans 7:18),</div>
-    <div class="verse">Not in my flesh. Not in this war.</div>
-    <div class="verse">I see the light, I long for truth—</div>
-    <div class="verse">But sin lies crouching, and its desire is for me (Genesis 4:7).</div>
+I know that nothing good dwells in me<span class="reference">(Romans 7:18)</span>,
+Not in my flesh. Not in this war.
+I see the light, I long for truth—
+But sin lies crouching, and its desire is for me<span class="reference">(Genesis 4:7)</span>.
 
-    <div class="verse">Deliver me, O God, from bloodguiltiness (Psalm 51:14),</div>
-    <div class="verse">Open my lips, that my mouth may declare Your praise (Psalm 51:15).</div>
-    <div class="verse">Draw me out of this pit (Psalm 40:2),</div>
-    <div class="verse">Because I am drowning in a body that betrays me.</div>
-  </div>
+Deliver me, O God, from bloodguiltiness<span class="reference">(Psalm 51:14)</span>,
+Open my lips, that my mouth may declare Your praise<span class="reference">(Psalm 51:15)</span>.
+Draw me out of this pit<span class="reference">(Psalm 40:2)</span>,
+Because I am drowning in a body that betrays me.
+
+        <div class="ending">And yet, in the abyss of my soul’s torment, I cling to Your mercy, O Lord, for only You can shatter this furnace and make me whole.</div>
+        </div>
+    </div>
 </body>
 </html>
