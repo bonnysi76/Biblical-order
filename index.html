@@ -1,124 +1,446 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wretched Man That I Am</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: url('https://www.transparenttextures.com/patterns/old-paper.png');
-            background-color: #f4e4bc;
-            font-family: 'Courier New', Courier, monospace;
-            color: #3c2f2f;
-            overflow-x: hidden;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Thandeka — Will you be my Valentine?</title>
+<style>
+  :root{
+    --bg1: #0f1724;
+    --bg2: #281338;
+    --accent: #ff4961;
+    --accent2: #ffb199;
+    --muted: #b9c0d3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background: radial-gradient(1200px 600px at 10% 20%, rgba(255,73,97,0.08), transparent 10%),
+                radial-gradient(900px 500px at 90% 80%, rgba(255,177,153,0.05), transparent 6%),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    color: #f6f7fb;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+  }
 
-        .container {
-            max-width: 800px;
-            width: 90%;
-            padding: 40px;
-            background: rgba(255, 245, 224, 0.9);
-            border: 5px solid #8b6f47;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            margin: 20px;
-            border-radius: 10px;
-        }
+  .card{
+    width:100%;
+    max-width:920px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius:18px;
+    padding:36px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
 
-        h1 {
-            text-align: center;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            color: #4a3728;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
+  h1{
+    font-size:28px;
+    letter-spacing:0.6px;
+    margin-bottom:6px;
+  }
+  p.lead{
+    color:var(--muted);
+    margin-bottom:20px;
+  }
 
-        .poem {
-            line-height: 1.8;
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            text-align: left;
-            white-space: pre-wrap;
-        }
+  .question{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    justify-content:center;
+    margin:18px 0 28px 0;
+    flex-wrap:wrap;
+  }
 
-        .reference {
-            font-size: 0.6em;
-            font-style: italic;
-            color: #8b6f47;
-            opacity: 0.5;
-            vertical-align: super;
-        }
+  .btn{
+    appearance:none;
+    border:0;
+    padding:14px 26px;
+    font-size:18px;
+    border-radius:12px;
+    cursor:pointer;
+    user-select:none;
+    transition: transform .12s ease, box-shadow .12s ease;
+    box-shadow: 0 6px 22px rgba(3,6,20,0.5);
+  }
 
-        .ending {
-            font-weight: bold;
-            font-style: italic;
-            color: #2e1e0f;
-            margin-top: 20px;
-            text-align: center;
-        }
+  .btn:active{ transform:scale(.98) }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
+  .btn-yes{
+    background: linear-gradient(180deg, #ff8aa0, var(--accent));
+    color:white;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    transform-origin:center;
+  }
 
-            h1 {
-                font-size: clamp(1.5rem, 4vw, 2rem);
-            }
+  .btn-no{
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.06);
+    color:var(--muted);
+    position:relative;
+    min-width:120px;
+    z-index:5;
+  }
 
-            .poem {
-                font-size: clamp(0.9rem, 2.5vw, 1rem);
-            }
-        }
-    </style>
+  /* small helper text */
+  .hint{ color: #d1d5e0; font-size:13px; margin-top:6px }
+
+  /* overlay animations */
+  .overlay{
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    pointer-events:none;
+  }
+
+  /* happy scene */
+  .happy{
+    pointer-events:auto;
+    width:100%;
+    height:100%;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+  }
+
+  .happy.show{ display:flex; }
+
+  .big-msg{
+    font-size:28px;
+    font-weight:700;
+    letter-spacing:0.4px;
+  }
+
+  /* confetti particles */
+  .confetti{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+  }
+  .confetti .c{
+    position:absolute;
+    width:10px;height:14px;
+    transform-origin:center;
+    opacity:.95;
+    animation:fall linear forwards;
+    border-radius:2px;
+  }
+
+  @keyframes fall{
+    to{ transform: translateY(120vh) rotate(720deg); opacity:0.9 }
+  }
+
+  /* heart pulse */
+  .hearts{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .heart{
+    width:48px;height:48px;
+    background: radial-gradient(circle at 30% 25%, #fff6f8 0 5%, transparent 6%),
+                linear-gradient(180deg,#ff5a7a,#ff2d59);
+    clip-path: path("M24 44 L7 28 C-1 20 2 8 12 8 C18 8 24 14 24 14 C24 14 30 8 36 8 C46 8 49 20 41 28 L24 44 Z");
+    transform-origin:center;
+    animation:beat 900ms ease-in-out infinite;
+  }
+  .heart:nth-child(2){ animation-delay: 180ms }
+  .heart:nth-child(3){ animation-delay: 360ms }
+  @keyframes beat{
+    0%{ transform: scale(0.9) }
+    50%{ transform: scale(1.15) }
+    100%{ transform: scale(0.9) }
+  }
+
+  /* sad scene */
+  .sad{
+    display:none;
+    pointer-events:auto;
+    gap:12px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+  }
+  .sad.show{ display:flex; }
+
+  .sad-face{
+    font-size:56px;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.6));
+    transform-origin:center;
+    animation:slumped 1100ms ease forwards;
+  }
+  @keyframes slumped{
+    0%{ transform: translateY(-6px) rotate(-4deg) }
+    70%{ transform: translateY(6px) rotate(4deg) }
+    100%{ transform: translateY(0) rotate(0) }
+  }
+
+  .tear{
+    width:12px;height:18px;border-radius:6px;
+    background: linear-gradient(180deg,#bfe7ff,#6bb9ff);
+    opacity:0;
+    transform: translateY(-8px);
+    animation:drop 1s ease forwards;
+  }
+  @keyframes drop{
+    0%{ opacity:0; transform: translateY(-12px) }
+    30%{ opacity:1; transform: translateY(0) }
+    100%{ opacity:0.8; transform: translateY(28px) }
+  }
+
+  /* decorative footer */
+  footer.credit{ margin-top:18px; font-size:12px; color: #98a3c0 }
+
+  /* responsiveness */
+  @media (max-width:520px){
+    h1{ font-size:22px }
+    .btn{ font-size:16px; padding:12px 18px }
+    .heart{ width:36px; height:36px }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Wretched Man That I Am<br>A Cry from the Furnace of Lust</h1>
-        <div class="poem">
-“Wretched man that I am! Who will deliver me from this body of death?”<span class="reference">(Romans 7:24)</span>
+  <div class="card" id="card">
+    <h1>Thandeka — will you be my Valentine?</h1>
+    <p class="lead">I had to ask properly. Pick one... (only one really works)</p>
 
-My flesh wars against my mind,
-And holds me captive to the law of sin<span class="reference">(Romans 7:23)</span>.
-The desires of the flesh are against the Spirit<span class="reference">(Galatians 5:17)</span>,
-And I do what I hate<span class="reference">(Romans 7:15)</span>.
-
-I was enticed and carried away by my own lust<span class="reference">(James 1:14)</span>,
-Sin conceived—and gave birth to death<span class="reference">(James 1:15)</span>.
-I made a covenant with my eyes<span class="reference">(Job 31:1)</span>,
-But my eyes made war with my soul<span class="reference">(1 Peter 2:11)</span>.
-
-The flesh profits nothing<span class="reference">(John 6:63)</span>,
-But still it whispers, “Taste and see.”
-Its path is wide, its gate is easy<span class="reference">(Matthew 7:13)</span>,
-And many are those who walk it—including me.
-
-I cried aloud, but He did not answer<span class="reference">(Lamentations 3:8)</span>,
-Because my iniquities have made a separation<span class="reference">(Isaiah 59:2)</span>.
-I washed, but the stain remains<span class="reference">(Jeremiah 2:22)</span>,
-The plague is within me<span class="reference">(1 Kings 8:38)</span>.
-
-O God, create in me a clean heart<span class="reference">(Psalm 51:10)</span>,
-Because mine is sick—deceitful above all things<span class="reference">(Jeremiah 17:9)</span>.
-The law is holy, but I am sold under sin<span class="reference">(Romans 7:12,14)</span>,
-I try to flee—but who will set me free?
-
-I know that nothing good dwells in me<span class="reference">(Romans 7:18)</span>,
-Not in my flesh. Not in this war.
-I see the light, I long for truth—
-But sin lies crouching, and its desire is for me<span class="reference">(Genesis 4:7)</span>.
-
-Deliver me, O God, from bloodguiltiness<span class="reference">(Psalm 51:14)</span>,
-Open my lips, that my mouth may declare Your praise<span class="reference">(Psalm 51:15)</span>.
-Draw me out of this pit<span class="reference">(Psalm 40:2)</span>,
-Because I am drowning in a body that betrays me.
-
-        <div class="ending">And yet, in the abyss of my soul’s torment, I cling to Your mercy, O Lord, for only You can shatter this furnace and make me whole.</div>
-        </div>
+    <div class="question" id="question">
+      <button class="btn btn-yes" id="yesBtn" aria-label="Yes — Be my valentine">Yes 💖</button>
+      <button class="btn btn-no" id="noBtn" aria-label="No — Not my valentine">No 😕</button>
     </div>
+
+    <div class="hint">Tip: try tapping the "No" button on a phone or move your mouse near it. 😉</div>
+
+    <div class="overlay" aria-hidden="true">
+      <!-- happy -->
+      <div class="happy" id="happy">
+        <div class="hearts" aria-hidden="true">
+          <div class="heart"></div>
+          <div class="heart"></div>
+          <div class="heart"></div>
+        </div>
+        <div class="big-msg" id="happyMsg">Yesss! 💘 I love you, Thandeka!</div>
+        <div class="confetti" id="confetti"></div>
+      </div>
+
+      <!-- sad -->
+      <div class="sad" id="sad">
+        <div class="sad-face" id="sadFace">😢</div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="tear" style="animation-delay:.05s"></div>
+          <div class="tear" style="animation-delay:.25s"></div>
+          <div style="color:#d0d7ee">Oh no... that's awkward.</div>
+        </div>
+        <div style="color:#b8c1dd;font-size:14px">Try again? or choose "Yes" — it's nicer.</div>
+      </div>
+    </div>
+
+    <footer class="credit">Made with ❤️ — For Thandeka</footer>
+  </div>
+
+<script>
+(function(){
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const happy = document.getElementById('happy');
+  const sad = document.getElementById('sad');
+  const confettiContainer = document.getElementById('confetti');
+  const card = document.getElementById('card');
+
+  let isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  // Helper - random int
+  function rand(min,max){ return Math.floor(Math.random()*(max-min+1))+min }
+
+  // YES button behavior -> show happy scene with confetti
+  yesBtn.addEventListener('click', () => {
+    // Hide question area gently
+    document.getElementById('question').style.opacity = 0;
+    setTimeout(()=>document.getElementById('question').style.display='none',160);
+    showHappy();
+  });
+
+  function showHappy(){
+    sad.classList.remove('show');
+    happy.classList.add('show');
+    // spawn confetti
+    spawnConfetti(28);
+    // play small celebration by animating card
+    card.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(1.02)' },
+      { transform: 'scale(1)' }
+    ], { duration: 700, easing: 'ease-out' });
+  }
+
+  function spawnConfetti(n){
+    confettiContainer.innerHTML = '';
+    const colors = ['#ff5a7a','#ffd56b','#8af7c5','#8fb4ff','#ffb199'];
+    for(let i=0;i<n;i++){
+      const el = document.createElement('div');
+      el.className = 'c';
+      const w = rand(6,14);
+      el.style.width = w + 'px';
+      el.style.height = Math.floor(w*1.4)+'px';
+      el.style.left = (rand(0,100)) + '%';
+      el.style.top = (-rand(4,18)) + 'vh';
+      el.style.background = colors[rand(0,colors.length-1)];
+      el.style.transform = `rotate(${rand(0,360)}deg)`;
+      el.style.animationDuration = (rand(1400,2600)) + 'ms';
+      el.style.animationDelay = rand(0,300) + 'ms';
+      confettiContainer.appendChild(el);
+    }
+    // cleanup after animation
+    setTimeout(()=> confettiContainer.innerHTML = '', 3200);
+  }
+
+  // NO button: make it dodge on desktop by moving away when cursor near
+  if(!isTouch){
+    // move randomly when mouse gets close
+    let dodging = false;
+    document.addEventListener('mousemove', (e) => {
+      if(dodging) return;
+      const rect = noBtn.getBoundingClientRect();
+      const mx = e.clientX, my = e.clientY;
+      const dx = mx - (rect.left + rect.width/2);
+      const dy = my - (rect.top + rect.height/2);
+      const dist = Math.hypot(dx,dy);
+      // if cursor within 120px, dodge
+      if(dist < 120){
+        dodgeNoButton(mx,my);
+      }
+    });
+
+    function dodgeNoButton(mouseX, mouseY){
+      dodging = true;
+      const parent = noBtn.parentElement;
+      const parentRect = parent.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const padding = 8;
+
+      // choose new position inside parent but away from mouse
+      let tries = 0;
+      let newLeft, newTop, newRect;
+      do{
+        const pw = parentRect.width - btnRect.width - padding*2;
+        const ph = parentRect.height - btnRect.height - padding*2;
+        newLeft = padding + rand(0, Math.max(0,Math.floor(pw)));
+        newTop  = padding + rand(0, Math.max(0,Math.floor(ph)));
+        // convert to viewport coords
+        newRect = {
+          left: parentRect.left + newLeft,
+          top: parentRect.top + newTop,
+          width: btnRect.width,
+          height: btnRect.height
+        };
+        tries++;
+      }while(tries < 12 && Math.hypot(mouseX - (newRect.left + newRect.width/2), mouseY - (newRect.top + newRect.height/2)) < 160);
+
+      // absolute positioning inside parent
+      noBtn.style.position = 'relative';
+      noBtn.style.transition = 'transform 220ms cubic-bezier(.2,.9,.3,1)';
+      // move using transform
+      const offsetX = newLeft - (btnRect.left - parentRect.left);
+      const offsetY = newTop - (btnRect.top - parentRect.top);
+      noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      setTimeout(()=> {
+        // nudge color and text a little
+        noBtn.style.transform = noBtn.style.transform + ' rotate(' + rand(-8,8) + 'deg)';
+        // allow future dodges
+        setTimeout(()=> {
+          noBtn.style.transition = '';
+          // keep the translated position as the new "base"
+          // get computed translate values to rebase (simplify by using left/top swap)
+          noBtn.style.left = (offsetX) + 'px';
+          noBtn.style.top = (offsetY) + 'px';
+          noBtn.style.transform = '';
+          noBtn.style.position = 'relative';
+          dodging = false;
+        }, 220);
+      }, 16);
+    }
+
+    // also prevent keyboard clicking
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      // show a playful wiggle and message
+      noBtn.animate([
+        { transform: 'translateX(0)' },
+        { transform: 'translateX(-10px)' },
+        { transform: 'translateX(10px)' },
+        { transform: 'translateX(0)' }
+      ], { duration: 420, easing: 'ease-out' });
+    });
+  } else {
+    // touch devices: touching the "No" triggers the sad animation immediately
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      showSad();
+    }, { passive:false });
+
+    // also prevent click fallback
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSad();
+    });
+  }
+
+  // show sad overlay
+  function showSad(){
+    happy.classList.remove('show');
+    sad.classList.add('show');
+    // subtle card shake
+    card.animate([
+      { transform: 'translateY(0)' },
+      { transform: 'translateY(-8px) rotate(-2deg)' },
+      { transform: 'translateY(8px) rotate(2deg)' },
+      { transform: 'translateY(0)' }
+    ], { duration: 800, easing: 'ease-out' });
+
+    // after a short while, restore question so they can choose again
+    setTimeout(()=> {
+      sad.classList.remove('show');
+      document.getElementById('question').style.display = 'flex';
+      document.getElementById('question').style.opacity = 1;
+    }, 1800);
+  }
+
+  // Extra: on small screens make "No" also jump horizontally on touchmove to feel evasive
+  if(isTouch){
+    let lastTouchX = 0;
+    document.addEventListener('touchmove', (ev) => {
+      if(!ev.touches || ev.touches.length===0) return;
+      const t = ev.touches[0];
+      lastTouchX = t.clientX;
+    }, { passive: true });
+
+    noBtn.addEventListener('touchend', (e) => {
+      // if they tried to touch but didn't trigger touchstart (some devices) show sad
+      showSad();
+    });
+  }
+
+  // friendly accessibility: keyboard users — let Enter on Yes work
+  yesBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') yesBtn.click() });
+  noBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); showSad() } });
+
+  // small visual flourish: pulse the card slowly
+  setInterval(()=> {
+    card.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.006)' }, { transform: 'scale(1)' }], { duration: 4000, easing: 'ease-in-out' });
+  }, 4500);
+
+})();
+</script>
 </body>
 </html>
